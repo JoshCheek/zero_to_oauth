@@ -36,6 +36,22 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   end
 
   def test_users_can_sign_in_with_twitter_when_returning_to_the_site
-    skip
+    name = 'Josh'
+    uid  = '123test-uid456'
+
+    # mock out authentication
+    OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
+      'provider'    => 'twitter',
+      'uid'         => uid,
+      'info'        => {'name' => name},
+      'credentials' => {'token' => 'test-token', 'secret' => 'test-secret'}
+    })
+
+    user = User.create! name: name, uid: uid
+    page.visit root_path
+    assert page.has_content?("Sign In")
+    page.click_on 'Sign In'
+    assert page.has_content?("Sign Out")
+    assert_equal 1, User.count
   end
 end
