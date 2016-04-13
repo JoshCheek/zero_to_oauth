@@ -7,8 +7,10 @@ gem 'uglifier', '>= 1.3.0'
 gem 'omniauth'
 gem 'omniauth-twitter'
 
+
 group :development, :test do
   gem 'pry'
+  gem 'dotenv-rails'
 end
 
 group :test do
