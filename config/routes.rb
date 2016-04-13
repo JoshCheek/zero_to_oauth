@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'welcome#index'
   get '/auth/twitter', as: 'sign_in'
+  get '/auth/:provider/callback', to: 'session#create'
+  delete '/session', to: 'session#destroy', as: 'sign_out'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
