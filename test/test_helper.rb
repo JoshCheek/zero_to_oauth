@@ -7,6 +7,9 @@ OmniAuth.config.test_mode = true
 
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
+  def teardown
+    Capybara.reset_sessions!
+  end
 end
 
 class ActiveSupport::TestCase
